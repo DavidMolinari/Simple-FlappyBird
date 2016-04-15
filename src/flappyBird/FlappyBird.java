@@ -1,6 +1,8 @@
 package flappyBird;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,6 +16,8 @@ public class FlappyBird implements ActionListener {
 	public static FlappyBird flappyBird;
 	
 	public Renderer renderer;
+	
+	public Rectangle minou;
 	
 	public FlappyBird(){
 		
@@ -29,6 +33,8 @@ public class FlappyBird implements ActionListener {
 		jframe.setVisible(true);
 		jframe.setResizable(false);
 		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		minou = new Rectangle(WIDTH / 2 -10, HEIGHT / 2 -10, 20, 20);
 		timer.start();
 	}
 	public static void main(String[] args) {
@@ -45,6 +51,24 @@ public class FlappyBird implements ActionListener {
 	
 	public void repaint(Graphics g) {
 		// TODO Auto-generated method stub
+		
+		//Background
+		g.setColor(Color.CYAN);
+		g.fillRect(0, 0, WIDTH, HEIGHT);
+		
+		// Le personnage Minou
+		g.setColor(Color.red);
+		g.fillRect(minou.x, minou.y, minou.width, minou.height);
+		
+		
+		// Le sol
+		g.setColor(Color.orange);
+		g.fillRect(0, HEIGHT - 120, WIDTH, 120);
+		g.setColor(Color.green);
+		g.fillRect(0, HEIGHT - 120, WIDTH, 20);
+		
+		
+		
 		
 	}
 
