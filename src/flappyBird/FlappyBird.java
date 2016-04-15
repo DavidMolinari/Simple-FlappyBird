@@ -50,14 +50,7 @@ public class FlappyBird implements ActionListener
 		addColumn(true);
 		addColumn(true);
 		addColumn(true);
-		addColumn(true);
-		addColumn(true);
-		addColumn(true);
-		addColumn(true);
-		addColumn(true);
-		addColumn(true);
-		addColumn(true);
-		addColumn(true);
+
 
 		timer.start();
 	}
@@ -77,16 +70,30 @@ public class FlappyBird implements ActionListener
 		{
 			Rectangle column = columns.get(i);
 			column.x -= speed;
+			
 		}
 		
-		renderer.repaint();
 		if (ticks % 2 == 0 && yMotion < 15)
 		{
 			yMotion += 2;
 		}
-		
+		for (int i = 0; i < columns.size(); i++) 
+		{
+			Rectangle column = columns.get(i);
+			if (column.x + column.width < 0 )
+			{
+				columns.remove(column);
+				//INFINITEMEH
+				if(column.y == 0){
+					addColumn(false);
+				}
+			}
+		}
 		
 		minou.y += yMotion;
+		
+		renderer.repaint();
+
 	}
 	
 	public void addColumn( boolean start)
