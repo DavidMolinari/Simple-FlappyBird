@@ -1,6 +1,7 @@
 package flappyBird;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -14,7 +15,7 @@ import javax.swing.Timer;
 public class FlappyBird implements ActionListener
 {
 	
-	public final int WIDTH = 800, HEIGHT = 600;
+	public final int WIDTH = 1200, HEIGHT = 600;
 	
 	public static FlappyBird flappyBird;
 	
@@ -23,8 +24,14 @@ public class FlappyBird implements ActionListener
 	
 	public Rectangle minou;
 	public int ticks, yMotion;
+	
+	public boolean gameOver, started = false;
+
+	
 	// Colletion de rectangles pour les colonnes.
 	public ArrayList<Rectangle> columns;
+	
+	
 	public FlappyBird()
 	{
 		
@@ -66,6 +73,9 @@ public class FlappyBird implements ActionListener
 		int speed = 10;
 		ticks++;
 		
+		
+		if (started)
+		{
 		for (int i = 0; i < columns.size(); i++) 
 		{
 			Rectangle column = columns.get(i);
@@ -92,6 +102,25 @@ public class FlappyBird implements ActionListener
 		
 		minou.y += yMotion;
 		
+		
+		for(Rectangle column : columns)
+		{
+			if (column.intersects(minou))
+			{
+				gameOver = true;
+				minou.x = column.x - minou.width; // pour que le minou reste coincé sur une colonne
+			}
+		}
+		
+		if (minou.y > HEIGHT - 120 || minou.y < 0){
+			
+			gameOver = true;
+		}
+		if (gameOver) minou.y = HEIGHT - 120 - minou.height;
+
+		}
+			
+			
 		renderer.repaint();
 
 	}
@@ -145,6 +174,19 @@ public class FlappyBird implements ActionListener
 			paintColumn(g, column);
 		}
 		
+		
+
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Arial", 1, 100));
+		if (!gameOver){
+			g.drawString("MEH TO START ", 250, HEIGHT / 2 - 50);
+		}
+		
+		g.setColor(Color.red);
+		g.setFont(new Font("Arial", 1, 100));
+		if (gameOver){
+			g.drawString("GAME OVER ! ", 250, HEIGHT / 2 - 50);
+		}
 		
 		
 	}
