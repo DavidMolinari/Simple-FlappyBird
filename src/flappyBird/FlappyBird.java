@@ -41,7 +41,7 @@ public class FlappyBird implements ActionListener
 
 		jframe.setSize(WIDTH, HEIGHT);
 		jframe.setVisible(true);
-		jframe.setResizable(false);
+		jframe.setResizable(true);
 		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		minou = new Rectangle(WIDTH / 2 -10, HEIGHT / 2 -10, 20, 20);
@@ -78,7 +78,7 @@ public class FlappyBird implements ActionListener
 		if(start)
 		{
 			columns.add(new Rectangle(WIDTH + width + columns.size() * 300, HEIGHT - height - 120, width, height));
-			columns.add(new Rectangle(WIDTH + width + (columns.size() - 1 * 300), 0, width, HEIGHT - height - space));
+			columns.add(new Rectangle(WIDTH + width + (columns.size() - 1) * 300, 0, width, HEIGHT - height - space));
 		}
 		else 
 		{
@@ -113,6 +113,10 @@ public class FlappyBird implements ActionListener
 		g.setColor(Color.green);
 		g.fillRect(0, HEIGHT - 120, WIDTH, 20);
 		
+		for(Rectangle column : columns)
+		{
+			paintColumn(g, column);
+		}
 		
 		
 		
