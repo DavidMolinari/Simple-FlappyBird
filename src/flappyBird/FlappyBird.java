@@ -22,7 +22,7 @@ public class FlappyBird implements ActionListener
 	public Random rand;
 	
 	public Rectangle minou;
-	
+	public int ticks, yMotion;
 	// Colletion de rectangles pour les colonnes.
 	public ArrayList<Rectangle> columns;
 	public FlappyBird()
@@ -58,7 +58,15 @@ public class FlappyBird implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
+		ticks++;
 		renderer.repaint();
+		if (ticks % 2 == 0 && yMotion < 15)
+		{
+			yMotion += 2;
+		}
+		
+		
+		minou.y += yMotion;
 	}
 	
 	public void addColumn( boolean start)
