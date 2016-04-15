@@ -52,7 +52,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener
 
 		jframe.setSize(WIDTH, HEIGHT);
 		jframe.setVisible(true);
-		jframe.setResizable(true);
+		jframe.setResizable(false);
 		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jframe.addMouseListener(this);
 		jframe.addKeyListener(this);
@@ -211,16 +211,16 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener
 		// TODO Auto-generated method stub
 		
 		//Background
-		g.setColor(Color.CYAN);
+		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		// Le personnage Minou
-		g.setColor(Color.red);
+		g.setColor(new Color(255,0,255));
 		g.fillRect(minou.x, minou.y, minou.width, minou.height);
 		
 		
 		// Le sol
-		g.setColor(Color.orange);
+		g.setColor(new Color(255,0,255));
 		g.fillRect(0, HEIGHT - 120, WIDTH, 120);
 		g.setColor(Color.green);
 		g.fillRect(0, HEIGHT - 120, WIDTH, 20);
@@ -238,17 +238,25 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener
 			g.drawString("MEH START ", 250, HEIGHT / 2 - 50);
 		}
 		
-		g.setColor(Color.red);
+		g.setColor(Color.RED);
 		g.setFont(new Font("Arial", 1, 100));
 		if (gameOver){
 			g.drawString("GAME OVER ! ", 250, HEIGHT / 2 - 50);
 		}
 		
 		if (!gameOver && started)
-		{
+		{		
+			g.setColor(Color.WHITE);
+
 			g.drawString(String.valueOf(score), 75, 150);
 		}
 		
+		int highScore = score;
+		if (highScore >= score && gameOver) {
+			g.setFont(new Font("Arial", 1, 25));
+			g.drawString("high score : " +  String.valueOf(highScore), 0, 80);
+
+		}
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
