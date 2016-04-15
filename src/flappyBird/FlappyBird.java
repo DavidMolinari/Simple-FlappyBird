@@ -47,6 +47,18 @@ public class FlappyBird implements ActionListener
 		minou = new Rectangle(WIDTH / 2 -10, HEIGHT / 2 -10, 20, 20);
 		columns = new ArrayList<Rectangle>();
 		addColumn(true);
+		addColumn(true);
+		addColumn(true);
+		addColumn(true);
+		addColumn(true);
+		addColumn(true);
+		addColumn(true);
+		addColumn(true);
+		addColumn(true);
+		addColumn(true);
+		addColumn(true);
+		addColumn(true);
+
 		timer.start();
 	}
 	public static void main(String[] args)
@@ -58,7 +70,15 @@ public class FlappyBird implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
+		int speed = 10;
 		ticks++;
+		
+		for (int i = 0; i < columns.size(); i++) 
+		{
+			Rectangle column = columns.get(i);
+			column.x -= speed;
+		}
+		
 		renderer.repaint();
 		if (ticks % 2 == 0 && yMotion < 15)
 		{
