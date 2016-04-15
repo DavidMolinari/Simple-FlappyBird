@@ -25,7 +25,7 @@ public class FlappyBird implements ActionListener, MouseListener
 	public Random rand;
 	
 	public Rectangle minou;
-	public int ticks, yMotion;
+	public int ticks, yMotion, score;
 	
 	public boolean gameOver, started = false;
 
@@ -76,6 +76,9 @@ public class FlappyBird implements ActionListener, MouseListener
 		{
 			minou = new Rectangle(WIDTH / 2 -10, HEIGHT / 2 -10, 20, 20);
 			columns.clear();
+			yMotion = 0;
+			score = 0;
+			
 			addColumn(true);
 			addColumn(true);
 			addColumn(true);
@@ -87,8 +90,14 @@ public class FlappyBird implements ActionListener, MouseListener
 		if (!started)	
 		{
 			started = true;
+		} else if (!gameOver)
+		{
+			if(yMotion > 0) 
+			{
+				yMotion = 0;
+			}
+			yMotion -= 10;
 		}
-		
 	}
 	
 	
@@ -130,6 +139,11 @@ public class FlappyBird implements ActionListener, MouseListener
 		
 		for(Rectangle column : columns)
 		{
+			
+			if ( column.y == 0 && minou.x + minou.width / 2 > column.x + column.width / 2 - 10 && minou.x + minou.width / 2 < column.x + column.width / 2 + 10)
+			{
+				score++;
+			}
 			if (column.intersects(minou))
 			{
 				gameOver = true;
@@ -141,7 +155,8 @@ public class FlappyBird implements ActionListener, MouseListener
 			
 			gameOver = true;
 		}
-		if (gameOver) minou.y = HEIGHT - 120 - minou.height;
+		//if (gameOver) minou.y = HEIGHT - 120 - minou.height;
+		if (minou.y + yMotion >= HEIGHT - 120 ) minou.y = HEIGHT - 120 - minou.height;
 
 		}
 			
@@ -213,6 +228,10 @@ public class FlappyBird implements ActionListener, MouseListener
 			g.drawString("GAME OVER ! ", 250, HEIGHT / 2 - 50);
 		}
 		
+		if (!gameOver && started)
+		{
+			g.drawString(String.valueOf(score), 75, 150);
+		}
 		
 	}
 	@Override
