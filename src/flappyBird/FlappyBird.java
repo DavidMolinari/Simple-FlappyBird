@@ -99,7 +99,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener
 			{
 				yMotion = 0;
 			}
-			yMotion -= 10;
+			yMotion -= 8;
 		}
 	}
 	
@@ -150,8 +150,18 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener
 			if (column.intersects(minou))
 			{
 				gameOver = true;
-				
-				
+				if (minou.x <= column.x )
+				{
+					minou.x = column.x - minou.width;
+				}
+				else {
+					if (column.y != 0) {
+						minou.y = column.y - minou.height;
+					} else if(minou.y < column.height)
+					{
+						minou.y = column.height;
+					}
+				}
 				
 				minou.x = column.x - minou.width; // pour que le minou reste coincé sur une colonne
 			}
